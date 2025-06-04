@@ -1,21 +1,17 @@
+// codigo simples para teste dos modulos TCRT5000, QRT-8A e motores do seguidor de linha
+
 #include "HardwareSerial.h"
 #include <Arduino.h>
 #include <DC-Motor-Arduino.h>
 #include <QTRSensors.h>
 
-// Código para Teste de Buzzer com base na litura do sensor lateral TCRT5000, se
-// linha branca um bip por 200ms.
-//
-// Código teste para motores: Indo pra frente, fazendo curva a esquerda, curva a
-// direita, motores para trás.
-
 enum { QRT, TRT, MOTOR };
-#define TESTE QRT
+const int teste = QRT;
 
 #define BUZZER_PIN 11
 #define TCRT_PIN 10
-#define EMITER_PIN 11
 const uint8_t qrt_pins[] { A0, A1, A2, A3, A4, A5, A6, A7 };
+#define EMITER_PIN 12
 
 // motor pins
 #define PWM1 1
@@ -44,12 +40,13 @@ void setup()
     // Initialize the sensors.
     qtr.setTypeAnalog();
     qtr.setSensorPins(qrt_pins, sizeof(qrt_pins));
-    qtr.setEmitterPin(EMITER_PIN);
+    qtr.setEmitterPin(EMITER_PIN); // no every module has this pin, but if used the emmiter is only
+                                   // turned on when reading
 }
 
 void loop()
 {
-    switch (TESTE) {
+    switch (teste) {
     case QRT:
         testa_qrt();
         break;
@@ -66,12 +63,18 @@ void loop()
     delay(50);
 }
 
+// testa motores andando para frente, para traz, para esquerda e para a direita
 void testa_motores()
 {
     uint8_t speed = 255;
     // forward
     m1.forward(speed);
     m2.forward(speed);
+    delay(400);
+
+    // backwards
+    m1.forward(-speed);
+    m2.forward(-speed);
     delay(400);
 
     // left
@@ -89,6 +92,8 @@ void testa_motores()
     delay(400);
 }
 
+// testa sensor TCRT5000
+// ao dectectar linha branca liga o pino do buzzer
 void testa_tcrt()
 {
     int result = digitalRead(TCRT_PIN);
@@ -102,6 +107,8 @@ void testa_tcrt()
     digitalWrite(BUZZER_PIN, LOW);
 }
 
+// testa sensor QRT-8A
+//  le sensores e escreve na saida serial
 void testa_qrt()
 {
     qtr.readLineWhite(sensors);
