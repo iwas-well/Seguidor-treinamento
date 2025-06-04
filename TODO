@@ -1,0 +1,5 @@
+Código para Teste de Buzzer com base na leitura do sensor lateral TCRT5000, se linha branca um bip por 200ms.
+
+Código teste para motores: Indo pra frente; fazendo curva a esquerda, curva a direita, motores para trás.
+
+Fazer a leitura e impressão no serial do sensor frontal QTR-8A, leitura analogica ou digital.
