@@ -8,17 +8,19 @@
 enum testType { QRT, TRT, MOTOR };
 testType teste = QRT;
 
-#define TCRT_PIN 10
-#define EMITER_PIN 12
-const uint8_t qrt_pins[] { A0, A1, A2, A3, A4, A5, A6, A7 };
-
 // motor pins
-#define PWM1 1
-#define M1_PIN1 2
-#define M1_PIN2 3
-#define PWM2 4
-#define M2_PIN1 5
-#define M2_PIN2 6
+#define PWM1 3
+#define M1_PIN1 5
+#define M1_PIN2 6
+#define PWM2 9
+#define M2_PIN1 10
+#define M2_PIN2 11
+
+// sensors pins
+#define TCRT_D 2
+#define TCRT_E 4
+#define QRT_ON_PIN 7 // if used, the qrt emmiter is only turned on when reading
+const uint8_t qrt_pins[] { A0, A1, A2, A3, A4, A5, A6, A7 };
 
 QTRSensors qtr;
 uint16_t sensors[8];
@@ -33,14 +35,13 @@ void testa_motores();
 void setup()
 {
     Serial.begin(9600);
-    pinMode(TCRT_PIN, INPUT);
+    pinMode(TCRT_D, INPUT);
     pinMode(LED_BUILTIN, OUTPUT);
 
     // Initialize the sensors.
     qtr.setTypeAnalog();
     qtr.setSensorPins(qrt_pins, sizeof(qrt_pins));
-    qtr.setEmitterPin(EMITER_PIN); // no every module has this pin, but if used the emmiter is only
-                                   // turned on when reading
+    qtr.setEmitterPin(QRT_ON_PIN);
 }
 
 void loop()
@@ -95,7 +96,7 @@ void testa_motores()
 // ao dectectar linha branca liga o pino do buzzer
 void testa_tcrt()
 {
-    int result = digitalRead(TCRT_PIN);
+    int result = digitalRead(TCRT_D);
     Serial.print(result);
 
     if (result == HIGH) {
