@@ -9,13 +9,12 @@
 #include <Arduino.h>
 
 // -- Classe DC_Motor --
-class DC_Motor
-{
+class DC_Motor {
 
 private:
-    uint8_t _pwmPin;                       // Pino PWM do motor p/ controle de velocidade
+    uint8_t _pwmPin; // Pino PWM do motor p/ controle de velocidade
     uint8_t _clockwise, _counterClockwise; // Pinos para setar o sentido do motor
-    uint8_t _speed;                        // Velocidade do motor
+    uint8_t _speed; // Velocidade do motor
 
 public:
     /*!

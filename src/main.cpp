@@ -5,13 +5,12 @@
 #include <DC-Motor-Arduino.h>
 #include <QTRSensors.h>
 
-enum { QRT, TRT, MOTOR };
-const int teste = QRT;
+enum testType { QRT, TRT, MOTOR };
+testType teste = QRT;
 
-#define BUZZER_PIN 11
 #define TCRT_PIN 10
-const uint8_t qrt_pins[] { A0, A1, A2, A3, A4, A5, A6, A7 };
 #define EMITER_PIN 12
+const uint8_t qrt_pins[] { A0, A1, A2, A3, A4, A5, A6, A7 };
 
 // motor pins
 #define PWM1 1
@@ -24,18 +23,18 @@ const uint8_t qrt_pins[] { A0, A1, A2, A3, A4, A5, A6, A7 };
 QTRSensors qtr;
 uint16_t sensors[8];
 
+DC_Motor m1(PWM1, M1_PIN1, M1_PIN2);
+DC_Motor m2(PWM2, M2_PIN2, M2_PIN2);
+
 void testa_tcrt();
 void testa_qrt();
 void testa_motores();
-
-DC_Motor m1(PWM1, M1_PIN1, M1_PIN2);
-DC_Motor m2(PWM2, M2_PIN2, M2_PIN2);
 
 void setup()
 {
     Serial.begin(9600);
     pinMode(TCRT_PIN, INPUT);
-    pinMode(BUZZER_PIN, OUTPUT);
+    pinMode(LED_BUILTIN, OUTPUT);
 
     // Initialize the sensors.
     qtr.setTypeAnalog();
@@ -100,11 +99,11 @@ void testa_tcrt()
     Serial.print(result);
 
     if (result == HIGH) {
-        digitalWrite(BUZZER_PIN, HIGH);
+        digitalWrite(LED_BUILTIN, HIGH);
         delay(200);
     }
 
-    digitalWrite(BUZZER_PIN, LOW);
+    digitalWrite(LED_BUILTIN, LOW);
 }
 
 // testa sensor QRT-8A
