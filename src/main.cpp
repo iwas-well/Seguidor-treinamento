@@ -64,32 +64,33 @@ void loop()
 }
 
 // testa motores andando para frente, para traz, para esquerda e para a direita
+// em intervalos de 3 segundos
 void testa_motores()
 {
     uint8_t speed = 255;
     // forward
     m1.forward(speed);
     m2.forward(speed);
-    delay(400);
+    delay(3000);
 
     // backwards
     m1.forward(-speed);
     m2.forward(-speed);
-    delay(400);
+    delay(3000);
 
     // left
     m1.forward(-speed);
     m2.forward(speed);
-    delay(400);
+    delay(3000);
 
     // right
     m1.forward(speed);
     m2.forward(-speed);
-    delay(400);
+    delay(3000);
 
     m1.stop();
     m2.stop();
-    delay(400);
+    delay(3000);
 }
 
 // testa sensor TCRT5000
