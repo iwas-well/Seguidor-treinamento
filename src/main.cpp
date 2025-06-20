@@ -26,7 +26,7 @@ QTRSensors qtr;
 uint16_t sensors[8];
 
 DC_Motor m1(PWM1, M1_PIN1, M1_PIN2);
-DC_Motor m2(PWM2, M2_PIN2, M2_PIN2);
+DC_Motor m2(PWM2, M2_PIN1, M2_PIN2);
 
 void testa_tcrt();
 void testa_qrt();
