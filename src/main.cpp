@@ -96,10 +96,17 @@ void testa_motores()
 // ao dectectar linha branca liga o pino do buzzer
 void testa_tcrt()
 {
-    int result = digitalRead(TCRT_D);
-    Serial.print(result);
+    int result1 = digitalRead(TCRT_E);
+    Serial.print("Left Sensor: ");
+    Serial.print(result1);
+    Serial.print("\n");
 
-    if (result == HIGH) {
+    int result2 = digitalRead(TCRT_D);
+    Serial.print("Right Sensor: ");
+    Serial.print(result2);
+    Serial.print("\n");
+
+    if ((result1 == HIGH) || (result2 == HIGH)) {
         digitalWrite(LED_BUILTIN, HIGH);
         delay(200);
     }
@@ -117,6 +124,5 @@ void testa_qrt()
         Serial.print(sensors[i]);
         Serial.print(" ");
     }
-
     Serial.print("\n");
 }
