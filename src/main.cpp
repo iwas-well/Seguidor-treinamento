@@ -6,7 +6,7 @@
 #include <QTRSensors.h>
 
 enum testType { QRT, TRT, MOTOR };
-testType teste = QRT;
+testType teste = MOTOR;
 
 // motor pins
 #define PWM1 3
@@ -71,6 +71,7 @@ void testa_motores()
     // forward
     m1.forward(speed);
     m2.forward(speed);
+    /*
     delay(3000);
 
     // backwards
@@ -91,6 +92,7 @@ void testa_motores()
     m1.stop();
     m2.stop();
     delay(3000);
+    */
 }
 
 // testa sensor TCRT5000
